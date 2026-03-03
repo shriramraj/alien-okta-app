@@ -8,7 +8,7 @@ FastAPI backend for hackathon MVP with Okta integration and a **demo UI**.
 
 1. Clone and enter directory:
    ```bash
-   cd alien-okta-miniapp
+   cd alien-okta-app
    ```
 
 2. Create virtual environment:
