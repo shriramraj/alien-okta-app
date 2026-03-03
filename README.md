@@ -1,144 +1,161 @@
+# Alien Okta Mini App
 
+FastAPI backend for hackathon MVP with Okta integration and a **demo UI**.
 
-Alien Okta App
+## Local Development
 
-Secure Identity Verification and Rewards Eligibility Platform
+### Setup
 
-Overview
+1. Clone and enter directory:
+   ```bash
+   cd alien-okta-miniapp
+   ```
 
-Alien Okta App is a secure identity driven backend application that verifies user authentication and enforces access policies using Okta. The system ensures that only authorized users can access protected endpoints and receive rewards based on defined eligibility logic.
+2. Create virtual environment:
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate   # Windows: .venv\Scripts\activate
+   ```
 
-The application demonstrates real world Identity and Access Management implementation using modern cloud native architecture.
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-⸻
+4. Configure environment:
+   ```bash
+   cp .env.example .env
+   # Edit .env: set DEMO_MODE=true for local demo (no Okta needed)
+   # Optional: set DEMO_ALLOWLIST=a@b.com,c@d.com (comma-separated)
+   ```
 
-Architecture
+5. Run locally:
+   ```bash
+   uvicorn app.main:app --reload --port 8080
+   ```
 
-Frontend or Client → FastAPI Backend → Okta Authentication → Role Based Access Control → Business Logic → Cloud Deployment
+6. Run tests (optional):
+   ```bash
+   pytest tests/ -v
+   ```
+   Uses `DEMO_MODE=true` and allowlisted test emails; no Okta needed.
 
-Deployed on Google Cloud Run with secure OAuth 2.0 based authentication flows.
+---
 
-⸻
+## How to Demo (5 steps)
 
-Key Features
+1. **Set demo mode** – In `.env` set `DEMO_MODE=true` and `DEMO_ALLOWLIST=a@b.com,c@d.com` (or your test emails).
 
-• Okta Single Sign On integration
-• OAuth 2.0 and OpenID Connect implementation
-• Role Based Access Control
-• Secure reward eligibility validation
-• REST API endpoints with protected routes
-• Cloud native deployment using Google Cloud Run
-• Environment variable based secret management
+2. **Open the demo UI** – Visit `http://localhost:8080/demo`. Use the form: enter email (e.g. `a@b.com`), an attestation string (≥10 chars), a nonce (e.g. `demo-001`), and amount (e.g. `100`).
 
-⸻
+3. **Run the flow** – Click **Verify Human** → then **Check Eligibility (Okta)** → then **Claim Reward**. Responses appear in the JSON viewer. In demo mode, allowlisted emails are treated as eligible.
 
-Tech Stack
+4. **Try failures** – Use attestation &lt; 10 chars → `human_verified: false`. Use a non-allowlisted email in demo mode → eligibility `false`. Skip Verify and go straight to Claim → `403` with `reason: "human_not_verified"`.
 
-Backend: FastAPI
-Authentication: Okta Workforce Identity
-Protocols: OAuth 2.0, OpenID Connect
-Cloud: Google Cloud Run
-Language: Python
-Security: JWT validation, access token verification
+5. **Use curl** – See sample curl commands below to hit the API from the terminal.
 
-⸻
+---
 
-Authentication Flow
-	1.	User attempts to access protected endpoint
-	2.	User is redirected to Okta for authentication
-	3.	Okta validates credentials and returns ID token and access token
-	4.	Backend verifies JWT signature and claims
-	5.	Access granted based on role or group membership
+## Sample curl commands
 
-⸻
+Base URL (adjust port if needed): `http://localhost:8080`
 
-API Endpoints
+**1. Verify Human** (attestation ≥10 chars; nonce must be unique per request or 409):
 
-GET /public
-Accessible without authentication
+```bash
+curl -s -X POST http://localhost:8080/api/verify-human \
+  -H "Content-Type: application/json" \
+  -d '{"email":"a@b.com","attestation":"I am a human proof string","nonce":"unique-nonce-1"}' | jq
+```
 
-GET /protected
-Requires valid Okta access token
+**2. Check Eligibility** (in demo mode, allowlisted emails return `eligible: true`):
 
-POST /reward
-Validates user eligibility and processes reward logic
+```bash
+curl -s -X POST http://localhost:8080/api/eligibility \
+  -H "Content-Type: application/json" \
+  -d '{"email":"a@b.com","nonce":"any"}' | jq
+```
 
-⸻
+**3. Claim Reward** (must have called verify-human first for that email; then eligibility; then claim):
 
-Security Design
+```bash
+curl -s -X POST http://localhost:8080/api/claim \
+  -H "Content-Type: application/json" \
+  -d '{"email":"a@b.com","nonce":"any","amount":100}' | jq
+```
 
-• JWT token validation using Okta public keys
-• Audience and issuer claim verification
-• Scope based authorization checks
-• Secure environment configuration
-• Principle of least privilege enforcement
+**4. Replay nonce (expect 409)**:
 
-⸻
+```bash
+curl -s -X POST http://localhost:8080/api/verify-human \
+  -H "Content-Type: application/json" \
+  -d '{"email":"a@b.com","attestation":"long enough attestation","nonce":"same-nonce-twice"}' | jq
+curl -s -X POST http://localhost:8080/api/verify-human \
+  -H "Content-Type: application/json" \
+  -d '{"email":"a@b.com","attestation":"long enough attestation","nonce":"same-nonce-twice"}' | jq
+```
 
-Setup Instructions
+---
 
-1. Clone Repository
+## API summary
 
-git clone https://github.com/yourusername/alien-okta-app.git
-cd alien-okta-app
+| Endpoint | Purpose |
+|----------|--------|
+| `GET /` | Landing with links to demo and docs |
+| `GET /demo` | **Demo UI** – single page with Verify / Eligibility / Claim buttons and JSON viewer |
+| `GET /docs` | Swagger UI |
+| `GET /redoc` | ReDoc |
+| `GET /healthz` | Health check |
+| `GET /healthz/ready` | Readiness (pings Okta when DEMO_MODE=false) |
+| `POST /api/verify-human` | Verify human (attestation + nonce); returns `verification_id`; nonce replay → 409 |
+| `POST /api/eligibility` | Check Okta (or demo allowlist) eligibility |
+| `POST /api/claim` | Mint claim token (requires prior verify + eligible); returns `claim_token`, `expires_in_seconds`, `okta_user_id` |
 
-2. Install Dependencies
+### Response conventions
 
-pip install -r requirements.txt
+- **Verify:** `human_verified`, `verification_id` (or `reason` on failure).
+- **Eligibility:** `eligible`, `okta_user_id`, `group_id`, `email`.
+- **Claim:** `claim_token`, `expires_in_seconds`, `okta_user_id`.
+- Errors include a stable `reason` field (e.g. `human_not_verified`, `not_eligible`, `nonce_reused`).
 
-3. Configure Environment Variables
+### Demo mode
 
-Create a .env file:
+- **DEMO_MODE=true** – No real Okta calls; emails in **DEMO_ALLOWLIST** (comma-separated) are treated as eligible.
+- **DEMO_MODE=false** – Real Okta (requires `OKTA_DOMAIN`, `OKTA_API_TOKEN`, `OKTA_TARGET_GROUP_ID`).
 
-OKTA_DOMAIN=your-org.okta.com
-OKTA_AUDIENCE=api://default
-OKTA_CLIENT_ID=your_client_id
+---
 
-4. Run Application
+## Deploy to Cloud Run
 
-uvicorn main:app --reload
+```bash
+export PROJECT_ID=your-gcp-project-id
+export SERVICE_NAME=alien-okta-app
+export REGION=us-central1
 
+gcloud run deploy $SERVICE_NAME \
+  --source . \
+  --platform managed \
+  --region $REGION \
+  --allow-unauthenticated \
+  --set-env-vars OKTA_DOMAIN=dev-123456.okta.com,OKTA_API_TOKEN=xxx,OKTA_TARGET_GROUP_ID=xxx,JWT_SECRET=xxx,DEMO_MODE=false
+```
 
-⸻
+---
 
-Deployment
+## Notes
 
-The application is containerized and deployed on Google Cloud Run.
+- Verification sessions (by email) expire after **5 minutes**.
+- Claim tokens (JWT HS256) expire after **5 minutes**.
+- Nonces in **verify-human** are replay-protected (409 if reused).
+- Request logging: one line per request with endpoint, result, status, and `elapsed_ms`.
 
-Steps:
-	1.	Build Docker image
-	2.	Push to Google Container Registry
-	3.	Deploy to Cloud Run
-	4.	Configure environment variables securely
+---
 
-⸻
+## Implemented extras
 
-Use Cases
-
-• Identity based reward distribution
-• Secure SaaS access management
-• API protection with enterprise SSO
-• IAM portfolio demonstration project
-
-⸻
-
-What This Project Demonstrates
-
-• Practical implementation of Okta SSO
-• Secure API architecture
-• Understanding of OAuth and OIDC flows
-• Real world IAM application design
-• Cloud native deployment skills
-
-⸻
-
-Future Enhancements
-
-• Multi Factor Authentication enforcement
-• Lifecycle management integration
-• Admin dashboard
-• Logging and monitoring with SIEM tools
-• SCIM provisioning support
-
-⸻
-
+- **Rate limiting** – 60 requests per minute per IP (in-memory). Skipped for `/healthz`, `/healthz/ready`, `/favicon.ico`, `/openapi.json`. 429 with `reason: "rate_limited"` when exceeded.
+- **Tests** – `pytest` + FastAPI `TestClient` in `tests/`. Run: `pytest tests/ -v`.
+- **Readiness** – `GET /healthz/ready`: when `DEMO_MODE=true` returns 200; when `DEMO_MODE=false` pings Okta and returns 503 if unreachable.
+- **One claim per verification** – After a successful claim, the verification for that email is consumed; a second claim without a new verify returns 403 `human_not_verified`.
+- **CORS** – Configurable via `CORS_ORIGINS` (comma-separated or `*`). Default `*` for demo; set to your frontend origin(s) in production.
+- **OpenAPI examples** – Request bodies in Swagger/ReDoc show example values (email, attestation, nonce, amount).
