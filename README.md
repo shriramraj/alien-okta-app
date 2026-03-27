@@ -1,6 +1,7 @@
 # Alien Okta Mini App
 
 FastAPI backend for hackathon MVP with Okta integration and a **demo UI**.
+HumanGate Rewards is an Alien-integrated mini-app architected to distribute bot-proof incentives through a secure, multi-stage identity verification pipeline. Leveraging a high-performance FastAPI backend deployed on GCP Cloud Run, the platform integrates Okta-based eligibility to ensure incentives are exclusively available to authorized human users. The application prioritizes security and sybil-resistance by implementing cryptographic nonce replay protection, in-memory rate limiting (60 req/min), and time-sensitive JWT (HS256) claim tokens with 5-minute expiration windows. By combining human attestation with native payment capabilities, HumanGate Rewards provides a robust, scalable solution for ensuring rewards are delivered fairly and securely to real individuals, effectively eliminating bot-driven "sybil" activity and automated interference.
 
 ## Local Development
 
