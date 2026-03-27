@@ -1,0 +1,330 @@
+{
+  "note": "Companies listed in application priority order based on Okta IAM skills transferability, market demand, and career trajectory toward cybersecurity.",
+  "companies": [
+    {
+      "priority": 1,
+      "slug": "splunk",
+      "name": "Splunk",
+      "domain": "SIEM / Security Analytics / Observability",
+      "tagline": "Turn machine data into answers.",
+      "brand_color": "#d94e36",
+      "match_score": 74,
+      "why_priority": "Splunk's security platform (Enterprise Security, SOAR, UBA) is fed by identity telemetry — exactly what Okta produces. The ability to speak both IAM and security analytics creates a unique bridge role most candidates can't fill.",
+      "target_roles": [
+        "Security Engineer",
+        "Solutions Engineer (Security)",
+        "Technical Account Manager",
+        "Sales Engineer",
+        "Detection Engineer"
+      ],
+      "okta_skills_that_transfer": [
+        {
+          "skill": "Authentication event logs (SSO, MFA, failed logins)",
+          "relevance": "high",
+          "note": "These are first-class SIEM data sources in Splunk Enterprise Security"
+        },
+        {
+          "skill": "User lifecycle events (provisioning, deprovisioning, group changes)",
+          "relevance": "high",
+          "note": "Critical for UBA (User Behavior Analytics) and insider threat detection"
+        },
+        {
+          "skill": "Zero Trust architecture",
+          "relevance": "high",
+          "note": "Splunk's security posture guidance aligns with Zero Trust; identity events anchor it"
+        },
+        {
+          "skill": "Adaptive Authentication & risk-based policies",
+          "relevance": "medium",
+          "note": "Maps to Splunk's risk-based alerting and UEBA risk scoring concepts"
+        },
+        {
+          "skill": "FastAPI + Okta API integration",
+          "relevance": "medium",
+          "note": "Splunk SOAR (Phantom) uses Python heavily; API integration skills are directly applicable"
+        },
+        {
+          "skill": "Compliance & audit logging",
+          "relevance": "medium",
+          "note": "Splunk is widely used for compliance reporting; IAM audit log context is valuable"
+        }
+      ],
+      "skill_gaps": [
+        "SPL (Splunk Processing Language) — key for querying and building dashboards",
+        "SIEM concepts — correlation rules, alerts, threat models",
+        "Log analysis and normalization (CIM — Common Information Model)",
+        "Threat hunting fundamentals",
+        "Splunk SOAR (Phantom) playbook development"
+      ],
+      "certifications": [
+        {
+          "name": "Splunk Core Certified User",
+          "priority": "high",
+          "reason": "Entry-level cert that proves SPL proficiency — required for almost any Splunk role"
+        },
+        {
+          "name": "Splunk Core Certified Power User",
+          "priority": "medium",
+          "reason": "Demonstrates advanced search and dashboard skills"
+        },
+        {
+          "name": "Splunk SOAR Certified Automation Developer",
+          "priority": "medium",
+          "reason": "Bridges your API/Python skills into Splunk's SOAR platform"
+        }
+      ],
+      "interview_talking_points": [
+        "I built alien-okta-app, which generates authentication events (verify-human, eligibility checks, JWT claims) that would be ideal Splunk data sources — I understand identity telemetry at the API level.",
+        "Okta's audit logs contain the exact user behavior signals Splunk UBA needs: login patterns, failed MFA, group changes, privilege escalations.",
+        "Zero Trust is only as strong as the identity signals feeding it — Okta and Splunk ES are natural partners, and I understand both sides.",
+        "My nonce replay protection and rate limiting work directly parallels the detection logic you'd write in Splunk: look for patterns, alert on anomalies, block repeated abuse."
+      ],
+      "gap_plan": "Take the free Splunk Fundamentals 1 course (4 hours) to learn SPL basics. Build a lab: forward Okta System Log events to a Splunk free trial, write SPL queries for failed logins, suspicious MFA patterns, and group membership changes.",
+      "ideal_first_role": "Solutions Engineer or Sales Engineer — these roles leverage your ability to explain IAM/identity concepts to customers while you build deeper Splunk technical skills on the job."
+    },
+    {
+      "priority": 2,
+      "slug": "crowdstrike",
+      "name": "CrowdStrike",
+      "domain": "EDR / Identity Threat Protection / Threat Intelligence",
+      "tagline": "Stop breaches.",
+      "brand_color": "#fc0000",
+      "match_score": 82,
+      "why_priority": "CrowdStrike Falcon Identity Threat Protection is one of the fastest-growing product lines — it directly competes with and integrates with Okta. Your IAM expertise is a direct asset, and the identity threat detection space is booming.",
+      "target_roles": [
+        "Identity Threat Protection Specialist",
+        "Cloud Security Engineer",
+        "Solutions Engineer (Identity)",
+        "Technical Account Manager",
+        "Threat Intelligence Analyst"
+      ],
+      "okta_skills_that_transfer": [
+        {
+          "skill": "MFA & Adaptive Authentication",
+          "relevance": "high",
+          "note": "CrowdStrike Identity Threat Protection uses MFA challenges as a response action; understanding MFA deeply is critical"
+        },
+        {
+          "skill": "Active Directory / LDAP integration",
+          "relevance": "high",
+          "note": "CrowdStrike Identity Protection monitors AD — your LDAP/directory knowledge is directly applicable"
+        },
+        {
+          "skill": "Zero Trust Architecture",
+          "relevance": "high",
+          "note": "CrowdStrike's Zero Trust Assessment (ZTA) score aligns perfectly with your Zero Trust IAM knowledge"
+        },
+        {
+          "skill": "User lifecycle management",
+          "relevance": "high",
+          "note": "Understanding normal user behavior patterns is foundational for detecting anomalies (lateral movement, privilege escalation)"
+        },
+        {
+          "skill": "Risk-based access policies",
+          "relevance": "high",
+          "note": "CrowdStrike uses behavioral risk scoring — your Okta Adaptive Auth experience maps directly"
+        },
+        {
+          "skill": "FastAPI + API integration skills",
+          "relevance": "medium",
+          "note": "CrowdStrike Fusion SOAR and API integrations use Python; your API development background helps"
+        }
+      ],
+      "skill_gaps": [
+        "Endpoint Detection & Response (EDR) concepts — how agents, telemetry, and detections work",
+        "Active Directory attack techniques (Kerberoasting, Pass-the-Hash, DCSync, Golden Ticket) — needed to understand what you're detecting",
+        "Threat intelligence frameworks (MITRE ATT&CK, Diamond Model)",
+        "Memory forensics and process injection fundamentals",
+        "CrowdStrike Falcon platform — Discover module, Spotlight, Identity"
+      ],
+      "certifications": [
+        {
+          "name": "CrowdStrike Certified Falcon Administrator (CCFA)",
+          "priority": "high",
+          "reason": "Core cert for CrowdStrike platform; demonstrates hands-on Falcon Console expertise"
+        },
+        {
+          "name": "CompTIA Security+",
+          "priority": "high",
+          "reason": "Foundational security cert that fills EDR/threat detection knowledge gaps; widely recognized"
+        },
+        {
+          "name": "MITRE ATT&CK Defender (MAD) — Identity",
+          "priority": "medium",
+          "reason": "Free certification focused on identity-based ATT&CK techniques — perfect alignment with your background"
+        }
+      ],
+      "interview_talking_points": [
+        "I understand identity lifecycles at a deep technical level — which means I understand exactly what 'normal' looks like, making it easier to spot anomalies like Pass-the-Hash or credential stuffing.",
+        "CrowdStrike Identity Threat Protection and Okta are complementary: Okta secures the identity, CrowdStrike detects when it's compromised. I can speak to both sides of that boundary.",
+        "The risk-based access policies I worked with in Okta — contextual signals like device trust, location, behavior — are the same signals CrowdStrike uses for its Zero Trust Assessment score.",
+        "My alien-okta-app project shows I can build security controls from scratch: nonce replay protection, rate limiting, session TTL enforcement — these are the concepts underlying detection engineering."
+      ],
+      "gap_plan": "Study MITRE ATT&CK Identity techniques (T1078, T1110, T1550). Build an AD lab (free: Windows Server eval + Okta AD Agent) to see how Okta + AD work together and how attacks like Pass-the-Hash would look in Okta logs. Take the free CrowdStrike University intro courses.",
+      "ideal_first_role": "Identity Threat Protection Specialist or Solutions Engineer — your IAM depth is rare on the CrowdStrike side and immediately differentiates you from pure endpoint/EDR candidates."
+    },
+    {
+      "priority": 3,
+      "slug": "palo-alto-networks",
+      "name": "Palo Alto Networks",
+      "domain": "NGFW / SASE / XSOAR / Prisma",
+      "tagline": "The cybersecurity partner of choice.",
+      "brand_color": "#6cb33f",
+      "match_score": 70,
+      "why_priority": "Palo Alto's Prisma Access (SASE) and XSOAR (SOAR) platforms both have deep IAM integration points. Your Zero Trust and automation skills transfer well, though the platform is broader and more network-heavy than your current background.",
+      "target_roles": [
+        "Systems Engineer (SASE / Prisma Access)",
+        "XSOAR Integration Developer",
+        "Identity Architect",
+        "Solutions Consultant",
+        "Cloud Security Engineer"
+      ],
+      "okta_skills_that_transfer": [
+        {
+          "skill": "Zero Trust Architecture",
+          "relevance": "high",
+          "note": "Prisma Access ZTNA (Zero Trust Network Access) is PAN's flagship — your Zero Trust IAM knowledge is a direct match"
+        },
+        {
+          "skill": "SSO / SAML / OIDC",
+          "relevance": "high",
+          "note": "Prisma Access integrates with Okta as IdP; understanding the identity side makes you uniquely valuable"
+        },
+        {
+          "skill": "Okta Workflows / automation mindset",
+          "relevance": "high",
+          "note": "XSOAR playbooks are the SOAR equivalent of Okta Workflows — the automation-first thinking transfers directly"
+        },
+        {
+          "skill": "OAuth 2.0 / API integration",
+          "relevance": "medium",
+          "note": "Cortex XSOAR integrations and Prisma APIs use OAuth; your FastAPI/API development skills apply"
+        },
+        {
+          "skill": "Compliance & governance",
+          "relevance": "medium",
+          "note": "Prisma Cloud compliance features align with your SOC 2/HIPAA IAM compliance knowledge"
+        },
+        {
+          "skill": "Policy-based access control",
+          "relevance": "medium",
+          "note": "PAN firewalls and Prisma Access use identity-based policy — your PBAC understanding is relevant"
+        }
+      ],
+      "skill_gaps": [
+        "Network security fundamentals — firewalls, VPNs, NAT, routing (TCP/IP)",
+        "NGFW (Next-Gen Firewall) concepts — app-ID, user-ID, SSL inspection",
+        "SASE / SD-WAN concepts",
+        "XSOAR playbook development (Python-based, though your Python skills help)",
+        "Cloud security posture management (CSPM) — Prisma Cloud"
+      ],
+      "certifications": [
+        {
+          "name": "PCCSA (Palo Alto Cybersecurity Analyst)",
+          "priority": "high",
+          "reason": "Entry-level PAN cert covering firewall and security fundamentals — good starting point"
+        },
+        {
+          "name": "PCSAE (Palo Alto SASE Security Engineer)",
+          "priority": "high",
+          "reason": "Directly covers Prisma Access / ZTNA — the most aligned product area for your background"
+        },
+        {
+          "name": "PCNSE (Palo Alto Network Security Engineer)",
+          "priority": "medium",
+          "reason": "Advanced cert — pursue after PCCSA; shows deep platform commitment"
+        }
+      ],
+      "interview_talking_points": [
+        "I understand the identity layer of Zero Trust deeply — when you deploy Prisma Access with Okta as the IdP, I've worked extensively on the Okta side of that integration.",
+        "My experience with Okta Workflows translates directly to XSOAR playbook thinking: trigger on an event, apply logic, take automated action. The paradigm is the same.",
+        "Prisma Access enforces access policy based on user identity — I can speak to exactly how that identity gets asserted, verified, and scoped from the Okta side.",
+        "Building alien-okta-app showed me how to design security flows end-to-end: authentication, eligibility, claims. That architectural thinking applies to designing Prisma Access policy models."
+      ],
+      "gap_plan": "Start with free PAN EDU-110 (Firewall Essentials) to build network security vocabulary. Then focus on Prisma Access documentation and ZTNA concepts. Your strongest angle is the Okta+Prisma integration story — practice walking through how an enterprise deploys both together.",
+      "ideal_first_role": "Systems Engineer for SASE/Prisma Access — your identity expertise fills a genuine gap on PAN SE teams where most candidates have network depth but weak IAM knowledge."
+    },
+    {
+      "priority": 4,
+      "slug": "okta",
+      "name": "Okta",
+      "domain": "Identity & Access Management Platform",
+      "tagline": "Identity for everyone.",
+      "brand_color": "#007d74",
+      "match_score": 96,
+      "why_priority": "Highest skills match — every skill transfers directly. Listed 4th because starting at Okta can limit early exposure to the broader security landscape. However, Okta roles provide the deepest IAM expertise and a platform for transitioning into adjacent security fields later.",
+      "target_roles": [
+        "Solutions Engineer",
+        "Technical Account Manager (TAM)",
+        "Identity Architect",
+        "Developer Advocate",
+        "Professional Services Consultant",
+        "Security Sales Engineer"
+      ],
+      "okta_skills_that_transfer": [
+        {
+          "skill": "Full Okta platform knowledge (SSO, MFA, Lifecycle, Workflows)",
+          "relevance": "high",
+          "note": "100% direct — you're applying to work on the platform you've been building with"
+        },
+        {
+          "skill": "OAuth 2.0, OIDC, SAML, SCIM",
+          "relevance": "high",
+          "note": "These protocols are the core of every Okta customer conversation"
+        },
+        {
+          "skill": "FastAPI + Okta API integration (alien-okta-app)",
+          "relevance": "high",
+          "note": "Tangible proof of hands-on API experience — rare among non-developer candidates"
+        },
+        {
+          "skill": "Zero Trust architecture",
+          "relevance": "high",
+          "note": "Okta's core sales narrative is identity-based Zero Trust; you can speak this fluently"
+        },
+        {
+          "skill": "Security controls (rate limiting, replay protection, session management)",
+          "relevance": "high",
+          "note": "Shows you think like a security engineer, not just an IAM admin"
+        },
+        {
+          "skill": "Compliance & governance (SOC 2, HIPAA context)",
+          "relevance": "high",
+          "note": "Most Okta customers have compliance requirements — this context is immediately useful in customer conversations"
+        }
+      ],
+      "skill_gaps": [
+        "Enterprise deployment patterns — large-scale Okta orgs, multi-tenant architectures",
+        "Customer-facing communication — translating technical complexity for executive audiences",
+        "Competitive differentiation — how Okta compares to Microsoft Entra ID, Ping, ForgeRock",
+        "Okta Customer Identity (CIAM) — consumer use cases vs. workforce use cases",
+        "Advanced Workflows and OIN (Okta Integration Network) connector development"
+      ],
+      "certifications": [
+        {
+          "name": "Okta Certified Professional",
+          "priority": "high",
+          "reason": "Baseline Okta cert; required or expected for most Okta roles"
+        },
+        {
+          "name": "Okta Certified Administrator",
+          "priority": "high",
+          "reason": "Demonstrates hands-on admin knowledge; essential for TAM and SE roles"
+        },
+        {
+          "name": "Okta Certified Developer",
+          "priority": "high",
+          "reason": "Directly validates your API/integration skills; differentiates you strongly for SE and Developer Advocate roles"
+        }
+      ],
+      "interview_talking_points": [
+        "I built alien-okta-app — a FastAPI application that integrates the Okta REST API for user group eligibility checking, JWT claim minting, and human verification. I've worked at the API level, not just the admin console.",
+        "Going through the What's Next program gave me a structured view of how Okta is used in the real world — I can speak to both the platform's capabilities and the career transition angle that many Okta customers navigate.",
+        "I've implemented security controls that Okta itself recommends: nonce replay protection, session TTL, rate limiting, one-use tokens. I know *why* these matter, not just *how* to configure them.",
+        "I understand the Okta customer journey from the outside — I've been that person deploying and integrating the platform. That customer empathy is directly useful in TAM and SE roles."
+      ],
+      "gap_plan": "Get the Okta Certified Professional and Administrator certs (available through the What's Next program). Build an advanced demo org with Workflows, OIN apps, and a CIAM use case to show breadth. Research competitor positioning (Entra ID, Ping) to be ready for competitive questions.",
+      "ideal_first_role": "Solutions Engineer or Developer Advocate — your combination of technical implementation skills and program participation story is a compelling narrative for both roles."
+    }
+  ]
+}

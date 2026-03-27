@@ -1,0 +1,110 @@
+{
+  "program": "Okta What's Next",
+  "description": "Career transition program focused on Identity and Access Management (IAM), Zero Trust, and cybersecurity. Participants gain hands-on experience with the Okta platform, industry protocols, and real integrations.",
+  "domains": [
+    {
+      "id": "iam",
+      "name": "Identity & Access Management",
+      "icon": "🔑",
+      "skills": [
+        "User lifecycle management (Joiner / Mover / Leaver)",
+        "Provisioning & deprovisioning via SCIM",
+        "Okta Universal Directory",
+        "Group-based access control",
+        "Attribute mapping & transformations",
+        "HR-driven identity sources"
+      ]
+    },
+    {
+      "id": "protocols",
+      "name": "Authentication Protocols",
+      "icon": "🔐",
+      "skills": [
+        "OAuth 2.0 (Authorization Code, Client Credentials, PKCE flows)",
+        "OpenID Connect (OIDC) — ID tokens, userinfo",
+        "SAML 2.0 (SP-initiated, IdP-initiated)",
+        "JSON Web Tokens (JWT) — generation, verification, expiry",
+        "LDAP & Active Directory integration",
+        "SSWS (Okta Simple Signed Web Service) token auth"
+      ]
+    },
+    {
+      "id": "security_controls",
+      "name": "Security Controls",
+      "icon": "🛡️",
+      "skills": [
+        "Multi-Factor Authentication (MFA) — TOTP, push, WebAuthn",
+        "Adaptive Authentication & risk-based policies",
+        "Device trust & endpoint posture",
+        "Network zone restrictions",
+        "Nonce replay protection (implemented in alien-okta-app)",
+        "Session management & TTL enforcement",
+        "Rate limiting (DoS mitigation)"
+      ]
+    },
+    {
+      "id": "zero_trust",
+      "name": "Zero Trust Architecture",
+      "icon": "🧱",
+      "skills": [
+        "Zero Trust principles — never trust, always verify",
+        "Continuous verification vs. perimeter-based security",
+        "Least-privilege access enforcement",
+        "Identity as the control plane / new perimeter",
+        "Policy-based access control (PBAC)",
+        "Contextual access — device, location, behavior signals"
+      ]
+    },
+    {
+      "id": "developer",
+      "name": "Developer & API Skills",
+      "icon": "⚙️",
+      "skills": [
+        "Okta REST API (users, groups, apps endpoints)",
+        "FastAPI + Okta integration (alien-okta-app project)",
+        "Async HTTP client usage (HTTPX)",
+        "JWT minting and signature verification (PyJWT)",
+        "Token introspection & validation",
+        "Webhook events & event hooks",
+        "API security best practices (rate limiting, replay protection, input validation)"
+      ]
+    },
+    {
+      "id": "automation",
+      "name": "Automation & Workflows",
+      "icon": "⚡",
+      "skills": [
+        "Okta Workflows (no-code/low-code automation)",
+        "SCIM automated provisioning flows",
+        "Event-driven lifecycle rules",
+        "Hook-based integrations (inline hooks, event hooks)"
+      ]
+    },
+    {
+      "id": "compliance",
+      "name": "Compliance & Governance",
+      "icon": "📋",
+      "skills": [
+        "Audit log analysis & retention",
+        "Access reviews & certification",
+        "SOC 2 / HIPAA IAM compliance context",
+        "Separation of duties (SoD)",
+        "Privileged Access Management (PAM) concepts",
+        "Role-Based Access Control (RBAC) design"
+      ]
+    }
+  ],
+  "portfolio_project": {
+    "name": "alien-okta-app",
+    "description": "FastAPI backend MVP integrating Okta for human verification, group-based eligibility checking, and JWT claim issuance. Demonstrates hands-on Okta API usage, security best practices, and production-ready patterns.",
+    "technologies": ["FastAPI", "Python", "Okta REST API", "JWT (HS256)", "HTTPX", "Docker", "SSWS authentication"],
+    "security_features": [
+      "Nonce replay attack protection",
+      "Session TTL (5-minute expiry)",
+      "Rate limiting (60 req/min per IP)",
+      "One-claim-per-verification pattern",
+      "Input validation (email, attestation, amount)",
+      "Demo mode for safe testing without real credentials"
+    ]
+  }
+}

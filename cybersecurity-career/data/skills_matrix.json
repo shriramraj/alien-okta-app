@@ -1,0 +1,188 @@
+{
+  "description": "Cross-reference matrix: how each Okta skill domain maps to each target company. Relevance is scored high / medium / low with a rationale.",
+  "companies_order": ["splunk", "crowdstrike", "palo-alto-networks", "okta"],
+  "matrix": [
+    {
+      "domain": "Identity & Access Management",
+      "domain_id": "iam",
+      "mappings": {
+        "splunk": {
+          "relevance": "high",
+          "rationale": "IAM events (provisioning, deprovisioning, group changes) are premium SIEM data — Splunk ES and UBA consume them directly.",
+          "use_case": "Write SPL queries over Okta System Log to detect orphaned accounts, excessive privilege grants, or off-hours provisioning."
+        },
+        "crowdstrike": {
+          "relevance": "high",
+          "rationale": "Understanding normal user lifecycle is the baseline for detecting lateral movement, privilege escalation, and insider threats.",
+          "use_case": "Map CrowdStrike Identity Threat Protection alerts to lifecycle events: compromised joiner accounts, stale leaver credentials being reused."
+        },
+        "palo-alto-networks": {
+          "relevance": "medium",
+          "rationale": "Prisma Access uses user identity for policy enforcement; lifecycle management context helps design clean policy models.",
+          "use_case": "Design Prisma Access user-based policies that automatically align with Okta group memberships via SAML assertions."
+        },
+        "okta": {
+          "relevance": "high",
+          "rationale": "Core product domain — 100% direct transfer.",
+          "use_case": "Everything from implementation demos to customer troubleshooting to architecture consulting."
+        }
+      }
+    },
+    {
+      "domain": "Authentication Protocols (OAuth, OIDC, SAML, JWT)",
+      "domain_id": "protocols",
+      "mappings": {
+        "splunk": {
+          "relevance": "medium",
+          "rationale": "Splunk SOAR and integrations use OAuth; knowing protocols helps configure data inputs and build connectors.",
+          "use_case": "Configure Splunk Add-on for Okta using SSWS/OAuth; understand token scopes when building SOAR actions."
+        },
+        "crowdstrike": {
+          "relevance": "medium",
+          "rationale": "CrowdStrike API uses OAuth 2.0; Fusion SOAR integrations leverage token-based auth.",
+          "use_case": "Build CrowdStrike Fusion workflows that call Okta API (suspend user, reset MFA) as a response action using OAuth tokens."
+        },
+        "palo-alto-networks": {
+          "relevance": "high",
+          "rationale": "Prisma Access IdP integration uses SAML/OIDC; XSOAR integrations use OAuth. Deep protocol knowledge is a differentiator.",
+          "use_case": "Configure Prisma Access with Okta as SAML IdP; build XSOAR integrations that use OAuth to call Okta and CrowdStrike APIs."
+        },
+        "okta": {
+          "relevance": "high",
+          "rationale": "Protocols are Okta's product surface — every customer interaction involves explaining or implementing OAuth, OIDC, or SAML.",
+          "use_case": "Demo PKCE flow, explain token lifetimes, troubleshoot SAML assertions, architect API access management."
+        }
+      }
+    },
+    {
+      "domain": "Security Controls (MFA, Adaptive Auth, Rate Limiting)",
+      "domain_id": "security_controls",
+      "mappings": {
+        "splunk": {
+          "relevance": "medium",
+          "rationale": "MFA failure patterns and adaptive auth risk events are valuable SIEM signals for detecting credential attacks.",
+          "use_case": "SPL correlation rule: 5+ MFA failures in 10 minutes across unique users = credential stuffing alert."
+        },
+        "crowdstrike": {
+          "relevance": "high",
+          "rationale": "CrowdStrike Identity Protection uses MFA as a primary response action; adaptive auth risk signals complement behavioral EDR signals.",
+          "use_case": "When Falcon detects suspicious process behavior, trigger Okta step-up MFA via API — defense in depth."
+        },
+        "palo-alto-networks": {
+          "relevance": "medium",
+          "rationale": "Prisma Access can enforce MFA at the network layer; understanding Okta's MFA model helps design layered controls.",
+          "use_case": "Design a Prisma Access policy that requires step-up authentication (via Okta) for access to sensitive network segments."
+        },
+        "okta": {
+          "relevance": "high",
+          "rationale": "Security controls are Okta's core value proposition — direct product knowledge.",
+          "use_case": "Design sign-on policies, explain risk engine, demo adaptive MFA, architect device trust flows."
+        }
+      }
+    },
+    {
+      "domain": "Zero Trust Architecture",
+      "domain_id": "zero_trust",
+      "mappings": {
+        "splunk": {
+          "relevance": "high",
+          "rationale": "Splunk Enterprise Security is frequently used to validate and monitor Zero Trust posture; identity events are the anchor.",
+          "use_case": "Build Splunk dashboards tracking Zero Trust health: MFA adoption rate, device trust coverage, high-risk authentications."
+        },
+        "crowdstrike": {
+          "relevance": "high",
+          "rationale": "CrowdStrike Zero Trust Assessment (ZTA) is a scored framework — your IAM Zero Trust knowledge maps directly.",
+          "use_case": "Articulate how Okta adaptive auth + CrowdStrike device health signals combine to raise or lower ZTA score dynamically."
+        },
+        "palo-alto-networks": {
+          "relevance": "high",
+          "rationale": "Prisma Access ZTNA is PAN's flagship architecture — Zero Trust is the entire product narrative.",
+          "use_case": "Position Okta as the identity provider in a Prisma Access Zero Trust deployment; explain the user verification chain."
+        },
+        "okta": {
+          "relevance": "high",
+          "rationale": "Okta positions itself as the Identity Cloud enabling Zero Trust — this is the core sales and technical narrative.",
+          "use_case": "Present the Zero Trust with Okta reference architecture to enterprise customers and prospects."
+        }
+      }
+    },
+    {
+      "domain": "Developer & API Skills",
+      "domain_id": "developer",
+      "mappings": {
+        "splunk": {
+          "relevance": "medium",
+          "rationale": "Splunk SOAR runs Python; Add-on Builder uses Python; API integration is needed for custom inputs.",
+          "use_case": "Write a Splunk SOAR playbook in Python that calls Okta API to suspend a user when a high-severity alert fires."
+        },
+        "crowdstrike": {
+          "relevance": "medium",
+          "rationale": "CrowdStrike Falcon API and Fusion SOAR integrations are Python-based; your FastAPI skills accelerate ramp-up.",
+          "use_case": "Build a Fusion SOAR workflow: on identity threat detection → call Okta API to reset sessions and force MFA re-enrollment."
+        },
+        "palo-alto-networks": {
+          "relevance": "high",
+          "rationale": "XSOAR integration development is Python-based; Cortex APIs use REST/OAuth — your alien-okta-app experience is directly transferable.",
+          "use_case": "Develop a XSOAR integration that orchestrates Okta (suspend user), CrowdStrike (contain endpoint), and Splunk (add to watchlist) from a single playbook."
+        },
+        "okta": {
+          "relevance": "high",
+          "rationale": "Developer-facing roles (Developer Advocate, SE) require demonstrated API experience — alien-okta-app is live proof.",
+          "use_case": "Use alien-okta-app as a portfolio piece in technical demos; extend it to showcase new Okta features."
+        }
+      }
+    },
+    {
+      "domain": "Automation & Workflows",
+      "domain_id": "automation",
+      "mappings": {
+        "splunk": {
+          "relevance": "medium",
+          "rationale": "Splunk SOAR automation mirrors the event-driven automation mindset of Okta Workflows.",
+          "use_case": "Translate Okta Workflow patterns (trigger → condition → action) into Splunk SOAR playbook design."
+        },
+        "crowdstrike": {
+          "relevance": "medium",
+          "rationale": "CrowdStrike Fusion SOAR uses the same trigger-logic-action pattern; automation experience accelerates SOAR adoption.",
+          "use_case": "Design automated response: Falcon Identity alert → Okta suspend → Slack notify → ServiceNow ticket (all orchestrated via Fusion)."
+        },
+        "palo-alto-networks": {
+          "relevance": "high",
+          "rationale": "XSOAR is PAN's SOAR platform — workflow/automation experience is the primary requirement for XSOAR roles.",
+          "use_case": "Map your Okta Workflows experience 1:1 to XSOAR: the concepts are identical, only the interface differs."
+        },
+        "okta": {
+          "relevance": "high",
+          "rationale": "Okta Workflows is a differentiating product feature; hands-on experience is directly valuable for SE demonstrations.",
+          "use_case": "Demo automated user offboarding workflow: HR system fires event → Okta Workflow deprovisions apps → logs to SIEM."
+        }
+      }
+    },
+    {
+      "domain": "Compliance & Governance",
+      "domain_id": "compliance",
+      "mappings": {
+        "splunk": {
+          "relevance": "medium",
+          "rationale": "Splunk is widely deployed for compliance reporting; IAM audit context helps frame compliance use cases.",
+          "use_case": "Build Splunk compliance dashboards: failed access attempts, privileged user activity, access review evidence from Okta logs."
+        },
+        "crowdstrike": {
+          "relevance": "medium",
+          "rationale": "CrowdStrike supports compliance frameworks (SOC 2, ISO 27001) — understanding IAM compliance requirements adds value.",
+          "use_case": "Map CrowdStrike telemetry + Okta audit logs to SOC 2 control evidence (CC6.1, CC6.2, CC6.3)."
+        },
+        "palo-alto-networks": {
+          "relevance": "medium",
+          "rationale": "Prisma Cloud has compliance posture management; IAM governance knowledge applies to cloud entitlements.",
+          "use_case": "Use Prisma Cloud CIEM (Cloud Infrastructure Entitlement Management) through the lens of Okta lifecycle governance."
+        },
+        "okta": {
+          "relevance": "high",
+          "rationale": "Every enterprise Okta customer has compliance requirements; access review and audit knowledge is immediately useful.",
+          "use_case": "Lead customer workshops on Okta access certification, audit log retention strategy, and RBAC governance design."
+        }
+      }
+    }
+  ]
+}
